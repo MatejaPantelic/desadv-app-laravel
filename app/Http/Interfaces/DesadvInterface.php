@@ -2,6 +2,7 @@
 
 namespace App\Http\Interfaces;
 
+use App\Models\Desadv;
 
 interface DesadvInterface {
 
@@ -31,4 +32,10 @@ interface DesadvInterface {
     */
     public function insertCsvRecordIntoDesadvTable(array $row, string $filename): void;
 
+    /**
+     * Return all records from 'desadv' table
+     *
+     * @return collection
+    */
+    public function getAllDesadv();
 }

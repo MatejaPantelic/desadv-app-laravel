@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\DesadvRepository;
 use App\Models\Desadv;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class DesadvController extends Controller
 {
+    protected $desadvRepository;
+
+    public function __construct(DesadvRepository $desadvRepository)
+    {
+        $this->desadvRepository = $desadvRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $desadvs=$this->desadvRepository->getAllDesadv();
+        return view('desadv.index')
+            ->with([
+                'desadvs'=>$desadvs,
+            ]);
     }
 
     /**
@@ -34,9 +48,9 @@ class DesadvController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Desadv $desadv)
+    public function show($desadv_id)
     {
-        //
+        dd($desadv_id);
     }
 
     /**

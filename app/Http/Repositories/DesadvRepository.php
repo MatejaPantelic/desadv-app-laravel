@@ -78,4 +78,10 @@ class DesadvRepository implements DesadvInterface
             'filename' => $filename,
         ]);
     }
+
+    public function getAllDesadv()
+    {
+        $desadvs=Desadv::GetDesadvWithSupplier()->paginate(25);
+        return $desadvs;
+    }
 }

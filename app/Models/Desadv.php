@@ -52,4 +52,19 @@ class Desadv extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    /**
+     * Scope function to return Desadv table attributes with supplier name from Supplier table.
+     *
+     * @param mixed $query Default param for passing query.
+     * @return collection
+    */
+    public function scopeGetDesadvWithSupplier($query)
+    {
+        return $query->select('id','material','ponr_line','quantity','document_id','arrival_date','calculated_arrival_date','filename')
+            ->addSelect([
+                'supplier' => Supplier::select('name')
+                    ->whereColumn('id', '=', 'desadvs.van_id')
+            ]);
+    }
 }
