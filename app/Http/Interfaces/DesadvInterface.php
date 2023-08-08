@@ -38,4 +38,11 @@ interface DesadvInterface {
      * @return collection
     */
     public function getAllDesadv();
+
+    /**
+     * Return not null columns for 'desadv' record with passed id.
+     *
+     * @return Desadv
+    */
+    public function getNotNullDesadvColumns(int $id);
 }

@@ -50,7 +50,13 @@ class DesadvController extends Controller
      */
     public function show($desadv_id)
     {
-        dd($desadv_id);
+        $data=$this->desadvRepository->getNotNullDesadvColumns($desadv_id);
+        return view('desadv.details')
+        ->with([
+            'desadv'=>$data['desadv'],
+            'notNullColumns'=>$data['notNullColumns'],
+        ]);
+
     }
 
     /**

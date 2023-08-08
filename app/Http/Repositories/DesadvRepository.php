@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\DesadvInterface;
 use App\Models\Desadv;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class DesadvRepository implements DesadvInterface
@@ -83,5 +84,27 @@ class DesadvRepository implements DesadvInterface
     {
         $desadvs=Desadv::GetDesadvWithSupplier()->paginate(25);
         return $desadvs;
+    }
+
+    public function getNotNullDesadvColumns(int $id)
+    {
+        //getting desadv record with passed id
+        $fullDesadv=Desadv::where('id',$id)->first();
+        //getitng names of all columns in desadv table
+        $allColumns=Schema::getColumnListing('desadvs');
+        //declaring array for not null columns names
+        // $notNullColumns = [];
+        foreach ($allColumns as $column) {
+            if (!is_null($fullDesadv->{$column})) {
+                $notNullColumns[] = $column;
+            }
+        }
+        //removing columns that do not need to be displayed
+        $notNullColumns = array_values(array_diff($notNullColumns, ['created_at','updated_at','id','calculated_arrival_date']));
+        //calling scope function from Desadv model
+        $desadv=Desadv::GetDesadvWithSupplierById($id,$notNullColumns)->first();
+
+        return ['notNullColumns'=>$notNullColumns, 'desadv'=>$desadv];
+
     }
 }

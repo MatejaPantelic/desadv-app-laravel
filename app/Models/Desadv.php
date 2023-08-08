@@ -54,7 +54,7 @@ class Desadv extends Model
     }
 
     /**
-     * Scope function to return Desadv table attributes with supplier name from Supplier table.
+     * Scope function to return desadv table attributes with supplier name from supplier table.
      *
      * @param mixed $query Default param for passing query.
      * @return collection
@@ -66,5 +66,22 @@ class Desadv extends Model
                 'supplier' => Supplier::select('name')
                     ->whereColumn('id', '=', 'desadvs.van_id')
             ]);
+    }
+
+    /**
+     * Scope function to return the passed columns from the desadv table and the supplier name for the record of the specified id
+     *
+     * @param mixed $query Default param for passing query.
+     * @param int $id ID of desadv record.
+     * @param array $columns Array of columns for selection from database.
+     * @return collection
+    */
+    public function scopeGetDesadvWithSupplierById($query,int $id, array $columns)
+    {
+        return $query->select($columns)
+            ->addSelect([
+                'supplier' => Supplier::select('name')
+                    ->whereColumn('id', '=', 'desadvs.van_id')
+            ])->where('id','=',$id);
     }
 }
