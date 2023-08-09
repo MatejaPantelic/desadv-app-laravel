@@ -34,8 +34,8 @@ services:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            # MYSQL_ROOT_HOST: '%'
-            MYSQL_ROOT_HOST: mysql
+            MYSQL_ROOT_HOST: '%'
+            # MYSQL_ROOT_HOST: mysql
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
@@ -60,6 +60,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             PMA_HOST: mysql
+            PMA_PORT: 3306
             PMA_USER: '${DB_USERNAME}'
             PMA_PASSWORD: '${DB_PASSWORD}'
         networks:
@@ -119,7 +120,7 @@ networks:
 volumes:
     sail-mysql:
         driver: local
-    sail-redis:
-        driver: local
-    sail-meilisearch:
-        driver: local
+    # sail-redis:
+    #     driver: local
+    # sail-meilisearch:
+    #     driver: local

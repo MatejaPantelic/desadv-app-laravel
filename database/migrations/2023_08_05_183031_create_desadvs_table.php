@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('desadvs', function (Blueprint $table) {
             $table->id();
-            $table->string('material');
-            $table->unsignedInteger('quantity');
+            $table->string('material')->nullable();
+            $table->unsignedInteger('quantity')->nullable();
             $table->string('delivery_id')->nullable();
-            $table->string('document_id');
+            $table->string('document_id')->nullable();
             $table->string('tracking_number')->nullable();
             $table->string('hwb')->nullable();
             $table->string('contract_number')->nullable();
-            $table->string('ponr_line');
+            $table->string('ponr_line')->nullable();
             $table->string('sonr')->nullable();
             $table->string('invoice_nr')->nullable();
             $table->date('despatch_date')->nullable();
@@ -28,11 +28,11 @@ return new class extends Migration
             $table->string('inco_term')->nullable();
             $table->unsignedInteger('da_packages')->nullable();
             $table->string('pack_list_nr')->nullable();
-            $table->string('transport_mode');
+            $table->string('transport_mode')->nullable();
             $table->string('carrier')->nullable();
-            $table->string('van_id');
-            $table->unsignedInteger('interchange_control_reference');
-            $table->date('message_data');
+            $table->string('van_id')->nullable();
+            $table->unsignedInteger('interchange_control_reference')->nullable();
+            $table->date('message_data')->nullable();
             $table->string('lig1')->nullable();
             $table->string('ctr1')->nullable();
             $table->string('fv1')->nullable();
@@ -42,10 +42,10 @@ return new class extends Migration
             $table->string('lig3')->nullable();
             $table->string('ctr3')->nullable();
             $table->string('fv3')->nullable();
-            $table->string('supplier_material');
+            $table->string('supplier_material')->nullable();
             $table->float('weight')->nullable();
-            $table->string('key');
-            $table->string('line');
+            $table->string('key')->nullable();
+            $table->string('line')->nullable();
             $table->boolean('calculated_arrival_date');
             $table->string('filename');
             $table->foreign('van_id')->references('id')->on('suppliers');
