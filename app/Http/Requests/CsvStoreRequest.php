@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\csvStructureRule;
 
 class CsvStoreRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class CsvStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'csv_file.*' => 'required|mimes:csv,txt|max:64'
+            'csv_file.*' => ['required', 'mimes:csv,txt', 'max:64', new csvStructureRule]
         ];
     }
 
@@ -34,7 +35,7 @@ class CsvStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'csv_file.*.mimes' => 'The File must have a .csv or .txt extension'
+            'csv_file.*.mimes' => 'The File must have a .csv or .txt extension.'
         ];
     }
 }
