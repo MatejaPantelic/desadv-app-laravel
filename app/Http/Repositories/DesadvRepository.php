@@ -92,8 +92,7 @@ class DesadvRepository implements DesadvInterface
         $fullDesadv=Desadv::where('id',$id)->first();
         //getitng names of all columns in desadv table
         $allColumns=Schema::getColumnListing('desadvs');
-        //declaring array for not null columns names
-        // $notNullColumns = [];
+        //creating an array for not null column names
         foreach ($allColumns as $column) {
             if (!is_null($fullDesadv->{$column})) {
                 $notNullColumns[] = $column;

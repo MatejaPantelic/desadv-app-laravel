@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+
                     <ol class="list-group list-group-light">
                         {{--  displaying the name of the supplier that is not in the array of not null columns of the desadv table --}}
                         <li class="list-group-item border-0">
