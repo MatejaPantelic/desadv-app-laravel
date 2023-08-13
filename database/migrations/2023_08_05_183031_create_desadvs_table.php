@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('tracking_number')->nullable();
             $table->string('hwb')->nullable();
             $table->string('contract_number')->nullable();
-            $table->string('ponr_line')->nullable();
+            $table->string('po_number')->nullable();
+            $table->string('line_number')->nullable();
             $table->string('sonr')->nullable();
             $table->string('invoice_nr')->nullable();
             $table->date('despatch_date')->nullable();

@@ -96,4 +96,17 @@ class DesadvController extends Controller
     {
         //
     }
+
+    /**
+     * Search the specified resource.
+     */
+    public function search(Request $request)
+    {
+
+        $desadvs = $this->desadvRepository->searchDesadvs($request);
+        return view('desadv.index')
+            ->with([
+                'desadvs' => $desadvs,
+            ]);
+    }
 }

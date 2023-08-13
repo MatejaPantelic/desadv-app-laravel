@@ -32,5 +32,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/overview',[DesadvController::class, 'index'])->name('desadv.index');
 Route::get('/details/{desadv_id}',[DesadvController::class, 'show'])->name('desadv.show');
 Route::post('/upload',[DesadvController::class, 'store'])->name('desadv.store');
+Route::get('/search',[DesadvController::class, 'search'])->name('desadv.search');
 
 require __DIR__.'/auth.php';
