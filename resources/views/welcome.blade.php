@@ -47,7 +47,7 @@
                 </ul>
                 @if (Route::has('login'))
                     @auth
-                        <a class="nav-link text-secondary" href="{{ route('dashboard') }}">Dashboard</a>
+                        <a class="nav-link text-secondary" href="{{ route('desadv.index') }}">Home</a>
                     @else
                         <a class="nav-link text-secondary" href="{{ route('login') }}">Login</a>
                         @if (Route::has('register'))
