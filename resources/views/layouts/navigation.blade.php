@@ -3,7 +3,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-
+                <div class="shrink w-16 space-x-8 flex items-center">
+                    <a href="{{ route('desadv.index') }}">
+                        <x-application-logo class="block h-9 fill-current text-gray-800" style="height: 20px"/>
+                    </a>
+                </div>
                 <div class="hidden space-x-8 sm:-my-px sm:flex">
                     <x-nav-link :href="route('desadv.index')">
                         {{ __('Home') }}

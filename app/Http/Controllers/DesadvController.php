@@ -102,7 +102,9 @@ class DesadvController extends Controller
      */
     public function search(Request $request)
     {
-
+        if ($request->has('reset')) {
+            return redirect()->route('desadv.index'); // Redirect to the index page without search parameters
+        }
         $desadvs = $this->desadvRepository->searchDesadvs($request);
         return view('desadv.index')
             ->with([

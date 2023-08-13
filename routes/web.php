@@ -25,9 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/overview',[DesadvController::class, 'index'])->name('desadv.index');
-Route::get('/details/{desadv_id}',[DesadvController::class, 'show'])->name('desadv.show');
-Route::post('/upload',[DesadvController::class, 'store'])->name('desadv.store');
-Route::get('/search',[DesadvController::class, 'search'])->name('desadv.search');
+Route::get('/overview',[DesadvController::class, 'index'])->middleware(['auth', 'verified'])->name('desadv.index');
+Route::get('/details/{desadv_id}',[DesadvController::class, 'show'])->middleware(['auth', 'verified'])->name('desadv.show');
+Route::post('/upload',[DesadvController::class, 'store'])->middleware(['auth', 'verified'])->name('desadv.store');
+Route::get('/search',[DesadvController::class, 'search'])->middleware(['auth', 'verified'])->name('desadv.search');
 
 require __DIR__.'/auth.php';

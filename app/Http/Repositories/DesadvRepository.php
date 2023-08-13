@@ -54,9 +54,9 @@ class DesadvRepository implements DesadvInterface
             'sonr' => $row[8],
             'invoice_nr' => $row[9],
             //change date format to (Y-m-d)
-            'despatch_date' => Carbon::parse($row[10])->format('Y-m-d'),
+            'despatch_date' => is_null($row[10]) ? null : Carbon::parse($row[10])->format('Y-m-d'),
             //assigning an arrival date value if it does not exist
-            'arrival_date' => is_null($row[11]) ? Carbon::parse($row[10])->addWeek()->format('Y-m-d') : $row[11],
+            'arrival_date' => is_null($row[11]) ? Carbon::parse($row[10])->addWeek()->format('Y-m-d') : Carbon::parse($row[11])->format('Y-m-d'),
             'inco_term' => $row[12],
             'da_packages' => $row[13],
             'pack_list_nr' => $row[14],
@@ -64,7 +64,7 @@ class DesadvRepository implements DesadvInterface
             'carrier' => $row[16],
             'van_id' => $row[17],
             'interchange_control_reference' => $row[18],
-            'message_data' => $row[19],
+            'message_data' => Carbon::parse($row[19])->format('Y-m-d'),
             'lig1' => $row[20],
             'ctr1' => $row[21],
             'fv1' => $row[22],
@@ -112,6 +112,9 @@ class DesadvRepository implements DesadvInterface
 
     public function searchDesadvs(Request $request)
     {
+        if ($request->has('reset')) {
+            return Desadv::paginate(25); // Return all records without filtering
+        }
         $desadvs = Desadv::search($request->search)->paginate(25);
         $suppliers=Supplier::all();
         foreach($desadvs as $desadv){

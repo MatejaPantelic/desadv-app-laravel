@@ -47,10 +47,15 @@
 
                 <div class="p-6 text-gray-900">
                     <div class="d-flex flex-row justify-content-end p-1">
-                        <form class="form-inline" action="{{ route('desadv.search') }}" method="GET"> <!-- Adjust the width as needed -->
-                            <input class="form-control" style="width: 250px;" type="search" placeholder="Search DESADV messages"
-                                aria-label="Search" name="search">
+                        <form class="form-inline" action="{{ route('desadv.search') }}" method="GET">
+                            <!-- Adjust the width as needed -->
+                            <input class="form-control" style="width: 250px;" type="search"
+                                placeholder="Search DESADV messages" aria-label="Search" name="search">
                             <button class="btn btn-secondary ml-2" type="submit">Search</button>
+                            @if (request('search'))
+                                <!-- Display the reset button only if a search term is entered -->
+                                <a href="{{ route('desadv.index') }}" class="btn btn-light ml-2">Reset</a>
+                            @endif
                         </form>
                     </div>
 
