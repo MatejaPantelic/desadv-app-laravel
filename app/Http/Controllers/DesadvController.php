@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\DesadvRepository;
+use App\Http\Requests\CsvStoreRequest;
 use App\Models\Desadv;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class DesadvController extends Controller
@@ -22,10 +22,10 @@ class DesadvController extends Controller
      */
     public function index()
     {
-        $desadvs=$this->desadvRepository->getAllDesadv();
+        $desadvs = $this->desadvRepository->getAllDesadv();
         return view('desadv.index')
             ->with([
-                'desadvs'=>$desadvs,
+                'desadvs' => $desadvs,
             ]);
     }
 
@@ -40,9 +40,24 @@ class DesadvController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CsvStoreRequest $request)
     {
-        //
+        //checking if the file has a .csv or .txt extension and is less than 64KB
+        $validated = $request->validated();
+
+        $uploadedFiles = $request->file('csv_file');
+
+        foreach ($uploadedFiles as $file) {
+            //storing each file
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('DESADVdata', $filename);
+            //function to read the stored file and insert it into database
+            $this->desadvRepository->readCsvRecords('DESADVdata',$filename);
+        }
+
+        return redirect()
+        ->back()
+        ->withSuccess('Successful files upload.');
     }
 
     /**
@@ -50,13 +65,12 @@ class DesadvController extends Controller
      */
     public function show($desadv_id)
     {
-        $data=$this->desadvRepository->getNotNullDesadvColumns($desadv_id);
+        $data = $this->desadvRepository->getNotNullDesadvColumns($desadv_id);
         return view('desadv.details')
-        ->with([
-            'desadv'=>$data['desadv'],
-            'notNullColumns'=>$data['notNullColumns'],
-        ]);
-
+            ->with([
+                'desadv' => $data['desadv'],
+                'notNullColumns' => $data['notNullColumns'],
+            ]);
     }
 
     /**
@@ -81,5 +95,18 @@ class DesadvController extends Controller
     public function destroy(Desadv $desadv)
     {
         //
+    }
+
+    /**
+     * Search the specified resource.
+     */
+    public function search(Request $request)
+    {
+
+        $desadvs = $this->desadvRepository->searchDesadvs($request);
+        return view('desadv.index')
+            ->with([
+                'desadvs' => $desadvs,
+            ]);
     }
 }
